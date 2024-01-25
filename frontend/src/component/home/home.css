@@ -48,6 +48,15 @@
   margin: 1vmax auto;
   color: rgb(0, 0, 0, 0.7);
 }
+.comtainer{
+  display: flex;
+  margin: 2vmax auto;
+  width: 80vw;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 100%;
+  
+}
 
 .productCard {
   width: 14vmax;

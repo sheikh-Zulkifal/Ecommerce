@@ -6,6 +6,7 @@ import Header from "./component/layout/Header/Header.jsx";
 
 import Footer from "./component/layout/footer/Footer.jsx";
 import Home from "./component/home/Home.jsx"
+import Loader from "./component/layout/Loader/Loader.jsx";
 
 function App() {
   React.useEffect(() => {
