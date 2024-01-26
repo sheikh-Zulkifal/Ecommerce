@@ -6,7 +6,8 @@ import Header from "./component/layout/Header/Header.jsx";
 
 import Footer from "./component/layout/footer/Footer.jsx";
 import Home from "./component/home/Home.jsx"
-import Loader from "./component/layout/Loader/Loader.jsx";
+import { ToastContainer } from "react-toastify";
+
 
 function App() {
   React.useEffect(() => {
@@ -18,6 +19,7 @@ function App() {
   }, []);
   return (
     <>
+    <ToastContainer />
       <Header />
       <Routes>
       <Route extact path="/" Component={Home}/>

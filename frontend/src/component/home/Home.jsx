@@ -6,6 +6,9 @@ import MetaData from "../layout/MetaData.jsx";
 import { getProduct } from "../../actions/ProductActions.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../layout/Loader/Loader.jsx";
+import { toast } from "react-toastify";
+
+
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -14,13 +17,24 @@ const Home = () => {
   );
 
   useEffect(() => {
-    dispatch(getProduct());
-  }, [dispatch]);
+    const fetchData = async () => {
+      
+      try {
+        await dispatch(getProduct());
+      } catch (error) {
+        toast.error(
+          "An error occurred while fetching products. Please try again later."
+        );
+      }
+    };
+
+    fetchData();
+  }, [dispatch,error]);
 
   return (
     <Fragment>
       {loading ? (
-        <Loader/>
+        <Loader />
       ) : (
         <Fragment>
           <MetaData title="ECOMMERCE" />
@@ -35,9 +49,11 @@ const Home = () => {
             </a>
           </div>
           <h2 className="homeHeading">Feature Products</h2>
-          <div className="comtainer" id="container">
+          <div className="container" id="container">
             {products &&
-              products.map((product) => <Product product={product} />)}
+              products.map((product) => (
+                <Product key={product._id} product={product} />
+              ))}
           </div>
         </Fragment>
       )}
