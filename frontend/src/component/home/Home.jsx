@@ -1,14 +1,12 @@
 import React, { Fragment, useEffect } from "react";
 import { CgMouse } from "react-icons/cg";
 import "./home.css";
-import Product from "./Product.jsx";
+import Product from "./ProductCard.jsx";
 import MetaData from "../layout/MetaData.jsx";
-import { getProduct } from "../../actions/ProductActions.jsx";
+import { clearErrors, getProduct } from "../../actions/ProductActions.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../layout/Loader/Loader.jsx";
 import { toast } from "react-toastify";
-
-
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -18,18 +16,16 @@ const Home = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      
       try {
         await dispatch(getProduct());
       } catch (error) {
-        toast.error(
-          "An error occurred while fetching products. Please try again later."
-        );
+        toast.error( error );
+        dispatch(clearErrors())
       }
     };
 
     fetchData();
-  }, [dispatch,error]);
+  }, [dispatch, error]);
 
   return (
     <Fragment>
