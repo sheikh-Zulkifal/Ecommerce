@@ -7,6 +7,8 @@ import Footer from "./component/layout/footer/Footer.jsx";
 import Home from "./component/home/Home.jsx"
 import ProductDetails from "./component/Product/ProductDetails.jsx";
 import { ToastContainer } from "react-toastify";
+import Products from "./component/Product/Products.jsx"
+import Search from "./component/Product/Search.jsx"
 
 
 function App() {
@@ -24,6 +26,9 @@ function App() {
       <Routes>
       <Route extact path="/" Component={Home}/>
       <Route extact path="/product/:id" Component={ProductDetails}/>
+      <Route extact path="/products" Component={Products}/>
+      <Route  path="/products/:keyword" Component={Products}/>
+      <Route extact path="/search" Component={Search}/>
       </Routes>
       <Footer />
     </>

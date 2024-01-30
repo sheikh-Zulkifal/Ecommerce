@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
 import ReviewCard from "./ReviewCard.jsx";
-import { CLEAR_ERRORS } from "../../constants/ProductConstants.jsx";
+
 
 const ProductDetails = () => {
   const dispatch = useDispatch();
