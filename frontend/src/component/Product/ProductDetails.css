@@ -17,6 +17,7 @@
 .CarouselImage {
   height: 400px;
   width: 400px;
+  object-fit: contain;
 }
 
 .detailsBlock-1 > h2 {

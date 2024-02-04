@@ -22,13 +22,14 @@ const ProductDetails = () => {
   useEffect(() => {
     if (error) {
       toast.error(error);
-      dispatch(clearErrors)
+      dispatch(clearErrors())
     }
     dispatch(getProductDetails(id));
   }, [dispatch, id]);
 
   const options = {
     edit: false,
+    count: 5,
     color: "rgba(20,20,20,0.1)",
     activeColor: "tomato",
     size: window.innerWidth < 600 ? 20 : 25,

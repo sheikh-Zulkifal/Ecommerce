@@ -15,6 +15,7 @@ const Home = () => {
   );
 
   useEffect(() => {
+    
     const fetchData = async () => {
       try {
         await dispatch(getProduct());
@@ -25,7 +26,7 @@ const Home = () => {
     };
 
     fetchData();
-  }, [dispatch, error]);
+  }, [dispatch]);
 
   return (
     <Fragment>
