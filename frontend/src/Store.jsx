@@ -5,11 +5,12 @@ import {
   productReducer,
 } from "./reducers/ProductReducer.jsx";
 import { composeWithDevTools } from "redux-devtools-extension";
-
+import { userReducer } from "./reducers/UserReducer.jsx";
 
 const reducer = combineReducers({
   products: productReducer,
   productDetails: productDetailsReducer,
+  user: userReducer,
 });
 
 let initialState = {};

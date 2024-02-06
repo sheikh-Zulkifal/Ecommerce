@@ -38,8 +38,7 @@ const options = {
   profileIconColorHover: "#eb4034",
   searchIconColorHover: "#eb4034",
   cartIconColorHover: "#eb4034",
-  cartIconMargin: "1vmax",
-  
+  cartIconMargin: "1vmax",  
   profileIcon:true,
   profileIconColor: "rgba(35, 35, 35,0.8)",
   ProfileIconElement: MdAccountCircle, 

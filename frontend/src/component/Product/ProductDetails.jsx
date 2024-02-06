@@ -10,6 +10,7 @@ import { clearErrors, getProductDetails } from "../../actions/ProductActions.jsx
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
+import MetaData from "../layout/MetaData.jsx";
 import ReviewCard from "./ReviewCard.jsx";
 
 
@@ -42,6 +43,7 @@ const ProductDetails = () => {
         <Loader />
       ) : (
         <Fragment>
+          <MetaData tittle = {`${product.name} -- ECOMMERCE`}  />
           <div className="ProductDetails">
             <div className="div-1">
               <Carousel>
