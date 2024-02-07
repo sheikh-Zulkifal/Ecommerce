@@ -10,6 +10,8 @@ import { ToastContainer } from "react-toastify";
 import Products from "./component/Product/Products.jsx"
 import Search from "./component/Product/Search.jsx"
 import LoginSignUp from "./component/User/LoginSignUp.jsx";
+import store from "./Store.jsx"
+import { loadUser } from "./actions/UserActions.jsx";
 
 
 function App() {
@@ -19,6 +21,7 @@ function App() {
         families: ["Roboto", "Droid Sans", "Chilanka"],
       },
     });
+    store.dispatch(loadUser())
   }, []);
   return (
     <>

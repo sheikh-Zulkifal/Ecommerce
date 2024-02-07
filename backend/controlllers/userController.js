@@ -4,18 +4,24 @@ const sendToken = require("../utils/jwtToken.js");
 const catchAsyncError = require("../middlewares/catchAsyncError.js");
 const sendEmail = require("../utils/sendEmail.js");
 const crypto = require("crypto");
+const cloudinary = require("cloudinary");
 
 // Register a user
 
 exports.registerUser = catchAsyncError(async (req, res, next) => {
+  const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+    folder: "avatars",
+    width: 150,
+    // crop: "scale ",
+  });
   const { name, email, password } = req.body;
   const user = await User.create({
     name,
     email,
     password,
     avatar: {
-      public_id: "this is a sample id",
-      url: "profilepicUrl",
+      public_id: myCloud.public_id,
+      url: myCloud.secure_url,
     },
   });
 
@@ -176,17 +182,16 @@ exports.getAllUsers = catchAsyncError(async (req, res, next) => {
 });
 
 // Get Single User (Admin)
-exports.getSingleUser = catchAsyncError(async(req, res, next) => {
-  const user = await User.findById(req.params.id)
+exports.getSingleUser = catchAsyncError(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
   if (!user) {
     return next(
       new ErrorHandler(`User does not exist with Id: ${req.params.id}`)
     );
-  };
-  res.status(200)
-  .json({
+  }
+  res.status(200).json({
     success: true,
-    user
+    user,
   });
 });
 
@@ -203,8 +208,10 @@ exports.updateUserRole = catchAsyncError(async (req, res, next) => {
     runValidators: true,
     useFindAndModify: false,
   });
-  if(!user){
-    return next( new ErrorHandler(`User does not exist with Id: ${req.params.id}`, 400))
+  if (!user) {
+    return next(
+      new ErrorHandler(`User does not exist with Id: ${req.params.id}`, 400)
+    );
   }
   res.status(200).json({
     success: true,
@@ -218,12 +225,13 @@ exports.deleteUser = catchAsyncError(async (req, res, next) => {
   const user = await User.findOneAndDelete({ _id: userId });
 
   if (!user) {
-    return next(new ErrorHandler(`User does not exist with Id: ${userId}`, 400));
+    return next(
+      new ErrorHandler(`User does not exist with Id: ${userId}`, 400)
+    );
   }
 
   res.status(200).json({
     success: true,
-    message: "User Delete Successfully"  
+    message: "User Delete Successfully",
   });
 });
-

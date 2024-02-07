@@ -33,7 +33,7 @@ function LoginSignUp() {
   const { name, email, password } = user;
 
   const [avatar, setAvatar] = useState();
-  const [avatarPreview, setAvatarPreview] = useState("/Profile.png ");
+  const [avatarPreview, setAvatarPreview] = useState();
 
   const loginSubmit = (e) => {
     e.preventDefault();
@@ -53,7 +53,7 @@ function LoginSignUp() {
   };
 
   const registerDataChange = (e) => {
-    if (e.target.value === "avatar") {
+    if (e.target.name === "avatar") {
       const reader = new FileReader();
       reader.onload = () => {
         if (reader.readyState === 2) {
@@ -65,6 +65,8 @@ function LoginSignUp() {
     } else {
       setUser({ ...user, [e.target.name]: e.target.value });
     }
+
+    console.log(avatar);
   };
 
   useEffect(() => {
@@ -146,6 +148,17 @@ function LoginSignUp() {
                     required
                     name="name"
                     value={name}
+                    onChange={registerDataChange}
+                  />
+                </div>
+                <div className="signUpEmail">
+                  <MailOutlineIcon />
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    required
+                    name="email"
+                    value={email}
                     onChange={registerDataChange}
                   />
                 </div>
