@@ -15,6 +15,14 @@ exports.registerUser = catchAsyncError(async (req, res, next) => {
     // crop: "scale ",
   });
   const { name, email, password } = req.body;
+
+  // Check if the password is at least 8 characters long
+  if (password.length < 8) {
+    return next(
+      new ErrorHandler("Password must be at least 8 characters long", 400)
+    );
+  }
+
   const user = await User.create({
     name,
     email,
@@ -145,7 +153,13 @@ exports.updatePassword = catchAsyncError(async (req, res, next) => {
   if (!isPasswordMatched) {
     return next(new ErrorHandler("Old Password is incorrect", 400));
   }
-
+  // Check if the new password is at least 8 characters long
+  if (req.body.newPassword.length < 8) {
+    return next(
+      new ErrorHandler("New password must be at least 8 characters long", 400)
+    );
+  }
+  
   if (req.body.newPassword !== req.body.confirmPassword) {
     return next(new ErrorHandler("Password does not matched", 400));
   }
@@ -160,14 +174,13 @@ exports.updateProfile = catchAsyncError(async (req, res, next) => {
     name: req.body.name,
     email: req.body.email,
   };
- 
-  
+
   if (req.body.avatar !== "") {
-    const user = await User.findById(req.user.id)
+    const user = await User.findById(req.user.id);
 
-    const imgId = user.avatar.public_id 
+    const imgId = user.avatar.public_id;
 
-    await cloudinary.v2.uploader.destroy(imgId)
+    await cloudinary.v2.uploader.destroy(imgId);
 
     const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
       folder: "avatars",
@@ -176,9 +189,9 @@ exports.updateProfile = catchAsyncError(async (req, res, next) => {
     });
 
     newUserData.avatar = {
-        public_id: myCloud.public_id,
-        url: myCloud.secure_url,    
-    }
+      public_id: myCloud.public_id,
+      url: myCloud.secure_url,
+    };
   }
 
   const user = await User.findByIdAndUpdate(req.user.id, newUserData, {

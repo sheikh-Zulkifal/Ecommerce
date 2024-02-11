@@ -122,7 +122,7 @@ const UpdateProfile = () => {
                 </div>
                 <input
                   type="submit"
-                  value="Update"
+                  value="updateProfile"
                   className="updateProfileBtn"
                   // disabled= {loading ? true : false}
                 />
