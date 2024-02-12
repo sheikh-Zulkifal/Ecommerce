@@ -9,7 +9,8 @@ import ListAltIcon from "@material-ui/icons/ListAlt";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { logout } from "../../../actions/UserActions";
+import { login, logout } from "../../../actions/UserActions";
+import LoginSignUp from "../../User/LoginSignUp";
 
 function UserOptions({ user }) {
   const navigate = useNavigate();
@@ -39,7 +40,7 @@ function UserOptions({ user }) {
     navigate("/account");
   }
   function logoutUser() {
-    dispatch(logout());
+    dispatch(logout());    
     toast.success("Logout Successfully");
   }
 

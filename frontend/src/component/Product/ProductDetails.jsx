@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import Carousel from "react-material-ui-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Loader from "../layout/Loader/Loader.jsx";
@@ -71,9 +71,9 @@ const ProductDetails = () => {
                 <h1>{`$${product.price}`}</h1>
                 <div className="detailsBlock-3-1">
                   <div className="detailsBlock-3-1-1">
-                    <button>-</button>
-                    <input value="1" type="number" />
-                    <button>+</button>
+                    <button onClick={decreaseQuantity}>-</button>
+                    <input value={quantity} type="number" />
+                    <button onClick={increaseQuantity}>+</button>
                   </div>{" "}
                   <button>Add to Cart</button>
                 </div>

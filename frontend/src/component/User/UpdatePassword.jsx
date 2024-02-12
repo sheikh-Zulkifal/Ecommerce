@@ -32,16 +32,14 @@ const UpdatePassword = () => {
     dispatch(updatePassword(myForm));
   };
 
-
   useEffect(() => {
-    
     if (error) {
       toast.error(error);
       dispatch(clearErrors());
     }
     if (isUpdated) {
       toast.success("Password Changed Successfully");
-      
+
       navigate("/account");
       dispatch({
         type: UPDATE_PASSWORD_RESET,
@@ -61,7 +59,6 @@ const UpdatePassword = () => {
               <h2 className="updatePasswordHeading">Update Profile</h2>
               <form
                 className="updatePasswordForm"
-                encType="multipart/form-data"
                 onSubmit={updatePasswordSubmit}
               >
                 <div className="signUpPassword">
