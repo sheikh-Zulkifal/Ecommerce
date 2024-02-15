@@ -20,6 +20,7 @@ import UpdateProfile from "./component/User/UpdateProfile.jsx"
 import UpdatePassword from "./component/User/UpdatePassword.jsx"
 import ForgotPassword from "./component/User/ForgotPassword.jsx"
 import ResetPassword from "./component/User/ResetPassword.jsx"
+import Cart from "./component/Cart/Cart.jsx"
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -49,6 +50,7 @@ function App() {
         <Route extact path="/password/forgot" Component={ForgotPassword}/>
         <Route extact path="/password/update" Component={UpdatePassword}/>
         <Route extact path="/password/reset/:token" Component={ResetPassword}/>
+        <Route extact path="/cart" Component={Cart}/>
       </Routes>
       <Footer />
     </>
