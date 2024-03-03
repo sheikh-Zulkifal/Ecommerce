@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 
 function LoginSignUp() {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const { error, loading, isAuthenticated } = useSelector(
     (state) => state.user
@@ -49,7 +49,7 @@ function LoginSignUp() {
     myForm.set("email", email);
     myForm.set("password", password);
     myForm.set("avatar", avatar);
-    dispatch(register(myForm))
+    dispatch(register(myForm));
   };
 
   const registerDataChange = (e) => {
@@ -65,18 +65,21 @@ function LoginSignUp() {
     } else {
       setUser({ ...user, [e.target.name]: e.target.value });
     }
-
   };
+  const redirect = location.search ? location.search.split("=")[1] : "account";
 
   useEffect(() => {
     if (error) {
       toast.error(error);
       dispatch(clearErrors());
     }
-    if (isAuthenticated) {
-    navigate("/account")
+    if (isAuthenticated && user) {
+      navigate(`/${redirect}`);
     }
-  }, [dispatch, error, isAuthenticated ]);
+    else{
+      navigate("/login")
+    }
+  }, [dispatch, error, isAuthenticated, redirect, user]);
   const switchTabs = (e, tab) => {
     if (tab === "login") {
       switcherTab.current.classList.add("shiftToNeutral");

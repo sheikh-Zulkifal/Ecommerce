@@ -52,9 +52,9 @@ function UserOptions({ user }) {
   function cart() {
     navigate("/cart");
   }
-  function logoutUser() {
-    dispatch(logout());
-    navigate("/");
+  async function  logoutUser() {
+    await dispatch(logout());
+    navigate("/login");
     toast.success("Logout Successfully");
   }
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import WebFont from "webfontloader";
@@ -16,21 +16,41 @@ import UserOptions from "./component/layout/Header/UserOptions.jsx";
 import { useSelector } from "react-redux";
 import Profile from "./component/User/Profile.jsx";
 import ProtectedRoute from "./component/Route/ProtectedRoute.jsx";
-import UpdateProfile from "./component/User/UpdateProfile.jsx"
-import UpdatePassword from "./component/User/UpdatePassword.jsx"
-import ForgotPassword from "./component/User/ForgotPassword.jsx"
-import ResetPassword from "./component/User/ResetPassword.jsx"
-import Cart from "./component/Cart/Cart.jsx"
+import UpdateProfile from "./component/User/UpdateProfile.jsx";
+import UpdatePassword from "./component/User/UpdatePassword.jsx";
+import ForgotPassword from "./component/User/ForgotPassword.jsx";
+import ResetPassword from "./component/User/ResetPassword.jsx";
+import Cart from "./component/Cart/Cart.jsx";
+import Shipping from "./component/Cart/Shipping.jsx";
+import ConfirmOrder from "./component/Cart/ConfirmOrder.jsx";
+import Payment from "./component/Cart/Payment.jsx";
+import axios from "axios";
+import PaymentRoutePass from "./component/PaymentRoutePass/PaymentRoutePass.jsx";
+import OrderSuccess from "./component/Cart/OrderSuccess.jsx"
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
-  React.useEffect(() => {
+
+  const [stripeApiKey, setStripeApiKey] = useState(null);
+  async function getStripeApiKey() {
+    const { data } = await axios.get(
+      "http://localhost:4000/api/v1/stripeapikey",
+      {
+        withCredentials: true,
+      }
+    );
+
+    setStripeApiKey(data.stripeApiKey);
+  }
+
+  useEffect(() => {
     WebFont.load({
       google: {
         families: ["Roboto", "Droid Sans", "Chilanka"],
       },
     });
     store.dispatch(loadUser());
+    getStripeApiKey();
   }, []);
   return (
     <>
@@ -45,12 +65,22 @@ function App() {
         <Route extact path="/search" Component={Search} />
         <Route extact path="/login" Component={LoginSignUp} />
         <Route extact path="/account" Component={Profile} />
-        <Route extact path="/me/update" Component={UpdateProfile}/>
-        <Route extact path="/password/update" Component={UpdatePassword}/>
-        <Route extact path="/password/forgot" Component={ForgotPassword}/>
-        <Route extact path="/password/update" Component={UpdatePassword}/>
-        <Route extact path="/password/reset/:token" Component={ResetPassword}/>
-        <Route extact path="/cart" Component={Cart}/>
+        <Route extact path="/me/update" Component={UpdateProfile} />
+        <Route extact path="/password/update" Component={UpdatePassword} />
+        <Route extact path="/password/forgot" Component={ForgotPassword} />
+        <Route extact path="/password/update" Component={UpdatePassword} />
+        <Route extact path="/password/reset/:token" Component={ResetPassword} />
+        <Route extact path="/cart" Component={Cart} />
+        <Route extact path="/shipping" Component={Shipping} />
+        <Route extact path="/order/confirm" Component={ConfirmOrder} />
+        {stripeApiKey && (
+          <Route
+            extact
+            path="/process/payment"
+            element={<PaymentRoutePass stripeApiKey={stripeApiKey} />}
+          />
+        )}
+        <Route extact path="/success" Component={OrderSuccess}/>
       </Routes>
       <Footer />
     </>
