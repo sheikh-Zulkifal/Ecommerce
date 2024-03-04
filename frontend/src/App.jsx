@@ -28,6 +28,7 @@ import axios from "axios";
 import PaymentRoutePass from "./component/PaymentRoutePass/PaymentRoutePass.jsx";
 import OrderSuccess from "./component/Cart/OrderSuccess.jsx";
 import MyOrders from "./component/Order/MyOrders.jsx";
+import OrderDetails from "./component/Order/OrderDetails.jsx";
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -128,6 +129,15 @@ function App() {
           element={
             <ProtectedRoute>
               <MyOrders />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          extact
+          path="/order/:id"
+          element={
+            <ProtectedRoute>
+              <OrderDetails />
             </ProtectedRoute>
           }
         />
