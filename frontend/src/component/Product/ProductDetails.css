@@ -134,7 +134,6 @@
   background-color: rgb(197, 68, 45);
   transform: scale(1.1);
 }
-
 .submitDialog {
   display: flex;
   flex-direction: column;
@@ -282,7 +281,7 @@
   }
 
   .reviewCard > p {
-    font: 600 3vw "Roboto";
+    font: 700 5vw "Roboto";
   }
   .reviewCardComment {
     font: 300 5vw cursive;

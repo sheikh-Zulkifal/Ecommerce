@@ -1,12 +1,12 @@
 import React, { Fragment, useEffect } from "react";
 import { CgMouse } from "react-icons/cg";
 import "./home.css";
-import Product from "./ProductCard.jsx";
 import MetaData from "../layout/MetaData.jsx";
 import { clearErrors, getProduct } from "../../actions/ProductActions.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../layout/Loader/Loader.jsx";
 import { toast } from "react-toastify";
+import ProductCard from "./ProductCard.jsx";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -49,7 +49,7 @@ const Home = () => {
           <div className="container" id="container">
             {products &&
               products.map((product) => (
-                <Product key={product._id} product={product} />
+                <ProductCard key={product._id} product={product} />
               ))}
           </div>
         </Fragment>
