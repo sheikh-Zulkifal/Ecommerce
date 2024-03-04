@@ -26,7 +26,8 @@ import ConfirmOrder from "./component/Cart/ConfirmOrder.jsx";
 import Payment from "./component/Cart/Payment.jsx";
 import axios from "axios";
 import PaymentRoutePass from "./component/PaymentRoutePass/PaymentRoutePass.jsx";
-import OrderSuccess from "./component/Cart/OrderSuccess.jsx"
+import OrderSuccess from "./component/Cart/OrderSuccess.jsx";
+import MyOrders from "./component/Order/MyOrders.jsx";
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -64,14 +65,46 @@ function App() {
         <Route path="/products/:keyword" Component={Products} />
         <Route extact path="/search" Component={Search} />
         <Route extact path="/login" Component={LoginSignUp} />
-        <Route extact path="/account" Component={Profile} />
-        <Route extact path="/me/update" Component={UpdateProfile} />
-        <Route extact path="/password/update" Component={UpdatePassword} />
+        <Route
+          extact
+          path="/account"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          extact
+          path="/me/update"
+          element={
+            <ProtectedRoute>
+              <UpdateProfile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          extact
+          path="/password/update"
+          element={
+            <ProtectedRoute>
+              <UpdatePassword />
+            </ProtectedRoute>
+          }
+        />
         <Route extact path="/password/forgot" Component={ForgotPassword} />
         <Route extact path="/password/update" Component={UpdatePassword} />
         <Route extact path="/password/reset/:token" Component={ResetPassword} />
         <Route extact path="/cart" Component={Cart} />
-        <Route extact path="/shipping" Component={Shipping} />
+        <Route
+          extact
+          path="/shipping"
+          element={
+            <ProtectedRoute>
+              <Shipping />
+            </ProtectedRoute>
+          }
+        />
         <Route extact path="/order/confirm" Component={ConfirmOrder} />
         {stripeApiKey && (
           <Route
@@ -80,7 +113,24 @@ function App() {
             element={<PaymentRoutePass stripeApiKey={stripeApiKey} />}
           />
         )}
-        <Route extact path="/success" Component={OrderSuccess}/>
+        <Route
+          extact
+          path="/success"
+          element={
+            <ProtectedRoute>
+              <OrderSuccess />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          extact
+          path="/orders"
+          element={
+            <ProtectedRoute>
+              <MyOrders />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
       <Footer />
     </>

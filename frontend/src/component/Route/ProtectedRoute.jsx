@@ -1,27 +1,18 @@
-  import React, { Fragment } from "react";
-  import { useSelector } from "react-redux";
-  import { Routes, Route, useNavigate } from "react-router-dom";
+import React, { Fragment } from "react";
+import { useSelector } from "react-redux";
+import { Routes, Route, useNavigate } from "react-router-dom";
 
-  const ProtectedRoute = ({ Component: Component, ...rest }) => {
-    const navigate = useNavigate()
-    const { loading, isAuthenticated, user } = useSelector((state) => state.user);
-    return (
-      <Fragment>
-        {!loading && (
-          <Routes>
-            <Route
-            {...rest}
-            render={(props) => {
-              if (!isAuthenticated) {
-                return navigate('/login')
-              }
-              return <Component {...props} />;
-            }}
-          />
-          </Routes>
-        )}
-      </Fragment>
-    );
-  };
+const ProtectedRoute = ({ children }) => {
+  const navigate = useNavigate();
+  const { loading, isAuthenticated, user } = useSelector((state) => state.user);
 
-  export default ProtectedRoute;
+  if (!user) {
+    navigate("/login");
+    return null; // Return null if user is not available
+  }
+
+  return <Fragment>{children}</Fragment>;
+  // Or using empty tags: return <>{children}</>;
+};
+
+export default ProtectedRoute;

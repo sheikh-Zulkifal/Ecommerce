@@ -5,11 +5,13 @@ import { loadStripe } from "@stripe/stripe-js";
 
 const PaymentRoutePass = ({ stripeApiKey }) => {
   return (
-    <div>
-      <Elements stripe={loadStripe(stripeApiKey)}>
-        <Payment />
-      </Elements>
-    </div>
+    stripeApiKey && (
+      <div>
+        <Elements stripe={loadStripe(stripeApiKey)}>
+          <Payment />
+        </Elements>
+      </div>
+    )
   );
 };
 

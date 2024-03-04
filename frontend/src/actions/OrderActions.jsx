@@ -2,6 +2,9 @@ import {
   CREATE_ORDER_REQUEST,
   CREATE_ORDER_SUCCESS,
   CREATE_ORDER_FAIL,
+  MY_ORDERS_REQUEST,
+  MY_ORDERS_SUCCESS,
+  MY_ORDERS_FAIL,
   CLEAR_ERRORS,
 } from "../constants/OrderConstants.jsx";
 
@@ -14,7 +17,6 @@ export const createOrder = (order) => async (dispatch, getState) => {
     dispatch({
       type: CREATE_ORDER_REQUEST,
     });
-console.log(order);     
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -23,9 +25,9 @@ console.log(order);
     };
     const { data } = await axios.post(
       "http://localhost:4000/api/v1/order/new",
-      
+
       order,
-      config,
+      config
     );
     dispatch({ type: CREATE_ORDER_SUCCESS, payload: data });
   } catch (error) {
@@ -35,9 +37,32 @@ console.log(order);
     });
   }
 };
+
+//   My Orders
+
+export const myOrders = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: MY_ORDERS_REQUEST,
+    });
+    
+    const { data } = await axios.get(
+      "http://localhost:4000/api/v1/orders/me",
+      { withCredentials: true } 
+    );
+    dispatch({ type: MY_ORDERS_SUCCESS, payload: data.orders });
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: MY_ORDERS_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
 // Clearing Errors
 export const clearErrors = () => async (dispatch) => {
-    dispatch({
-      type: CLEAR_ERRORS,
-    });
-  };
+  dispatch({
+    type: CLEAR_ERRORS,
+  });
+};
