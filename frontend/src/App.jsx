@@ -31,6 +31,7 @@ import MyOrders from "./component/Order/MyOrders.jsx";
 import OrderDetails from "./component/Order/OrderDetails.jsx";
 import Dashboard from "./component/Admin/Dashboard.jsx";
 import ProductList from "./component/Admin/ProductList.jsx";
+import NewProduct from "./component/Admin/NewProduct.jsx";
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -158,6 +159,15 @@ function App() {
           element={
             <ProtectedRoute isAdmin={true}>
               <ProductList />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          extact
+          path="/admin/product"
+          element={
+            <ProtectedRoute isAdmin={true}>
+              <NewProduct />
             </ProtectedRoute>
           }
         />

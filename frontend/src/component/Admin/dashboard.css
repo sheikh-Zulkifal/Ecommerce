@@ -4,7 +4,6 @@
   display: grid;
   grid-template-columns: 1fr 5fr;
   position: absolute;
-  padding-top: 2.5rem;
 }
 .dashboardContainer {
   border-left: 1px solid rgba(0, 0, 0, 0.13);
