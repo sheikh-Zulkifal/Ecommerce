@@ -9,10 +9,13 @@ import {
   NEW_REVIEW_REQUEST,
   NEW_REVIEW_SUCCESS,
   NEW_REVIEW_FAIL,
-  NEW_REVIEW_RESET,
+  ADMIN_PRODUCT_REQUEST,
+  ADMIN_PRODUCT_SUCCESS,
+  ADMIN_PRODUCT_FAIL,
 } from "../constants/ProductConstants.jsx";
 import axios from "axios";
 
+// GET ALL PRODUCTS
 export const getProduct =
   (keyword = "", currentPage = 1, price = [0, 25000], category, ratings = 0) =>
   async (dispatch) => {
@@ -37,6 +40,26 @@ export const getProduct =
       });
     }
   };
+
+// GET ALL PRODUCTS FOR ADMIN
+
+export const getAdminProducts = () => async (dispatch) => {
+  try {
+    dispatch({ type: ADMIN_PRODUCT_REQUEST });
+    const { data } = await axios.get(
+      "http://localhost:4000/api/v1/admin/products",
+      { withCredentials: true }
+    );
+
+    dispatch({ type: ADMIN_PRODUCT_SUCCESS, payload: data.products });
+  } catch (error) {
+    dispatch({
+      type: ADMIN_PRODUCT_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
 // Get Producct Details
 export const getProductDetails = (id) => async (dispatch) => {
   try {

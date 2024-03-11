@@ -11,7 +11,6 @@ import { toast } from "react-toastify";
 import { clearErrors, myOrders } from "../../actions/OrderActions";
 const MyOrders = () => {
   const dispatch = useDispatch();
-  const params = useParams();
   const { loading, error, orders } = useSelector((state) => state.myOrders);
   const { user } = useSelector((state) => state.user);
 
@@ -26,18 +25,10 @@ const MyOrders = () => {
       renderCell: (params) => {
         const status = params.row.status;
         const textStyle = {
-          color: status === "Delivered" ? "green" : "red"
+          color: status === "Delivered" ? "green" : "red",
         };
         return <div style={textStyle}>{status}</div>;
       },
-      
-    //   renderCell: (params) => {
-    //     const status = params.row.status;
-    //     const className = status === "Delivered" ? "greenColor" : "redColor";
-    //     return <div className={className}>{status}</div>;
-    //   },
-      
-      
     },
     {
       field: "itemsQty",
