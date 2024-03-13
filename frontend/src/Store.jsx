@@ -5,6 +5,7 @@ import {
   newReviewReducer,
   productDetailsReducer,
   productReducer,
+  productsReducer,
 } from "./reducers/ProductReducer.jsx";
 import { composeWithDevTools } from "redux-devtools-extension";
 import {
@@ -20,7 +21,7 @@ import {
 } from "./reducers/OrderReducer.jsx";
 
 const reducer = combineReducers({
-  products: productReducer,
+  products: productsReducer,
   productDetails: productDetailsReducer,
   user: userReducer,
   profile: profileReducer,
@@ -31,6 +32,7 @@ const reducer = combineReducers({
   orderDetails: orderDetailsReducer,
   newReview: newReviewReducer,
   newProduct: newProductReducer,
+  product: productReducer,
 });
 
 let initialState = {

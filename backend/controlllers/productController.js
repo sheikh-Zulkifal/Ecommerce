@@ -38,7 +38,6 @@ exports.createProduct = catchAsyncError(async (req, res, next) => {
   });
 });
 
-
 // Get all Products
 exports.getAllProducts = catchAsyncError(async (req, res, next) => {
   const resultPerPage = 8;
@@ -107,18 +106,31 @@ exports.updateProduct = catchAsyncError(async (req, res, next) => {
 });
 
 // Delete Product--admin
-
 exports.deleteProduct = catchAsyncError(async (req, res, next) => {
   try {
-    const product = await Product.deleteOne({ _id: req.params.id });
+    const product = await Product.findByIdAndDelete(req.params.id);
 
     if (!product) {
       return next(new ErrorHandler("Product not found", 404));
     }
 
+    // Delete images from Cloudinary
+    const deletePromises = product.images.map(async (image) => {
+      try {
+        const result = await cloudinary.v2.uploader.destroy(image.public_id);
+        // console.log(`Image with ID ${image.public_id} deleted successfully`);
+        // console.log(result); // Log the result from Cloudinary
+      } catch (error) {
+        console.error(`Failed to delete image with ID ${image.public_id}:`, error);
+      }
+    });
+
+    // Wait for all image deletions to complete
+    await Promise.all(deletePromises);
+
     return res.status(200).json({
       success: true,
-      message: "Product deleted successfully",
+      message: "Product and associated images deleted successfully",
     });
   } catch (error) {
     console.error(error);
@@ -128,6 +140,40 @@ exports.deleteProduct = catchAsyncError(async (req, res, next) => {
     });
   }
 });
+
+// exports.deleteProduct = catchAsyncError(async (req, res, next) => {
+//   try {
+//     const product = await Product.deleteOne({ _id: req.params.id });
+
+//     if (!product) {
+//       return next(new ErrorHandler("Product not found", 404));
+//     }
+//     for (let i = 0; i < product.images.length; i++) {
+//       const imageId = product.images[i];
+//       console.log(`Deleting image with ID: ${imageId}`);
+//       try {
+//         const result = await cloudinary.v2.uploader.destroy(imageId);
+//         console.log(`Image with ID ${imageId} deleted successfully`);
+//         console.log(result); // Log the result from Cloudinary
+//       } catch (error) {
+//         console.error(`Failed to delete image with ID ${imageId}:`, error);
+//       }
+//     }
+    
+    
+
+//     return res.status(200).json({
+//       success: true,
+//       message: "Product deleted successfully",
+//     });
+//   } catch (error) {
+//     console.error(error);
+//     return res.status(500).json({
+//       success: false,
+//       message: "Internal Server Error",
+//     });
+//   }
+// });
 
 // Create Update Review
 
