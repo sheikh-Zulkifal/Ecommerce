@@ -7,7 +7,6 @@ import { toast } from "react-toastify";
 import { clearErrors, getOrderDetails } from "../../actions/OrderActions";
 import { Link, useParams } from "react-router-dom";
 import { Typography } from "@material-ui/core";
-import { get } from "mongoose";
 
 const OrderDetails = () => {
   const { loading, error, order } = useSelector((state) => state.orderDetails);
