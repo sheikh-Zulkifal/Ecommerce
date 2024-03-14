@@ -20,6 +20,11 @@ import {
   DELETE_PRODUCT_FAIL,
 } from "../constants/ProductConstants.jsx";
 import axios from "axios";
+import {
+  UPDATE_PASSWORD_FAIL,
+  UPDATE_PASSWORD_REQUEST,
+  UPDATE_PASSWORD_SUCCESS,
+} from "../constants/UserConstants.jsx";
 
 // GET ALL PRODUCTS
 export const getProduct =
@@ -88,6 +93,33 @@ export const createProduct = (productData) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: NEW_PRODUCT_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Update Product
+export const updateProduct = (id, productData) => async (dispatch) => {
+  try {
+    dispatch({ type: UPDATE_PASSWORD_REQUEST });
+
+    const config = {
+      headers: { "Content-Type": "application/json" },
+      withCredentials: true,
+    };
+
+    const { data } = await axios.put(
+      `http://localhost:4000/api/v1/admin/product/${id}`,
+      productData,
+      config
+    );
+    dispatch({
+      type: UPDATE_PASSWORD_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: UPDATE_PASSWORD_FAIL,
       payload: error.response.data.message,
     });
   }

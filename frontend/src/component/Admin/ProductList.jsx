@@ -43,7 +43,7 @@ const ProductList = () => {
       dispatch({type : DELETE_PRODUCT_RESET})
     }
     dispatch(getAdminProducts());
-  }, [error, dispatch, deleteError,isDeleted]);
+  }, [error, dispatch, deleteError,isDeleted, navigate]);
 
   const columns = [
     {
