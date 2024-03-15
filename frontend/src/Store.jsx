@@ -9,8 +9,10 @@ import {
 } from "./reducers/ProductReducer.jsx";
 import { composeWithDevTools } from "redux-devtools-extension";
 import {
+  allUsersReducer,
   forgotPasswordReducer,
   profileReducer,
+  userDetailsReducer,
   userReducer,
 } from "./reducers/UserReducer.jsx";
 import { cartReducer } from "./reducers/CartReducer.jsx";
@@ -37,6 +39,8 @@ const reducer = combineReducers({
   product: productReducer,
   allOrders: allOrdersReducer,
   order: orderReducer,
+  allUsers: allUsersReducer,
+  userDetails: userDetailsReducer,
 });
 
 let initialState = {

@@ -186,7 +186,7 @@ exports.updateProfile = catchAsyncError(async (req, res, next) => {
     const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
       folder: "avatars",
       width: 150,
-      // crop: "scale ",
+      
     });
 
     newUserData.avatar = {
@@ -262,6 +262,10 @@ exports.deleteUser = catchAsyncError(async (req, res, next) => {
       new ErrorHandler(`User does not exist with Id: ${userId}`, 400)
     );
   }
+
+  const imgId = user.avatar.public_id;
+
+    await cloudinary.v2.uploader.destroy(imgId);
 
   res.status(200).json({
     success: true,
