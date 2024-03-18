@@ -36,6 +36,9 @@ import OrderList from "./component/Admin/OrderList.jsx";
 import ProcessOrder from "./component/Admin/ProcessOrder.jsx";
 import UsersList from "./component/Admin/UsersList.jsx";
 import UpdateUser from "./component/Admin/UpdateUser.jsx";
+import ProductReviews from "./component/Admin/ProductReviews.jsx";
+import About from "./component/layout/About/About.jsx";
+import Contact from "./component/layout/ContactUs/Contact.jsx";
 
 
 function App() {
@@ -73,6 +76,8 @@ function App() {
         <Route extact path="/products" Component={Products} />
         <Route path="/products/:keyword" Component={Products} />
         <Route extact path="/search" Component={Search} />
+        <Route exact path="/contact" Component={Contact} />
+        <Route exact path="/about" Component={About} />
         <Route extact path="/login" Component={LoginSignUp} />
         <Route
           extact
@@ -178,7 +183,7 @@ function App() {
         />
         <Route
           extact
-          path="/admin/product/:id"
+          path="/admin/product/:productId"
           element={
             <ProtectedRoute isAdmin={true}>
               <UpdateProduct />
@@ -214,10 +219,19 @@ function App() {
         />
         <Route
           extact
-          path="/admin/user/:id"
+          path="/admin/user/:userId"
           element={
             <ProtectedRoute isAdmin={true}>
               <UpdateUser />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          extact
+          path="/admin/reviews"
+          element={
+            <ProtectedRoute isAdmin={true}>
+              <ProductReviews />
             </ProtectedRoute>
           }
         />

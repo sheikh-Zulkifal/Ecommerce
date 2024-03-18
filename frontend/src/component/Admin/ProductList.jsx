@@ -34,7 +34,7 @@ const ProductList = () => {
       dispatch(clearErrors());
     }
     if (deleteError) {
-      toast.error(error);
+      toast.error(deleteError);
       dispatch(clearErrors());
     }
     if (isDeleted) {
