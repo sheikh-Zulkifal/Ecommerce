@@ -1,0 +1,15 @@
+{
+    "version": 2,
+    "routes": [
+      {
+        "src": "/api/v1/(.*)",
+        "dest": "backend/api/v1/$1"
+      },
+      {
+        "src": "/(.*)",
+        "dest": "backend/$1"
+      }
+    ],
+    "rewrites": []
+  }
+  

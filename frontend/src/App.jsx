@@ -39,7 +39,7 @@ import UpdateUser from "./component/Admin/UpdateUser.jsx";
 import ProductReviews from "./component/Admin/ProductReviews.jsx";
 import About from "./component/layout/About/About.jsx";
 import Contact from "./component/layout/ContactUs/Contact.jsx";
-
+import NotFound from "./component/layout/Not Found/NotFound.jsx";
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -65,6 +65,7 @@ function App() {
     store.dispatch(loadUser());
     getStripeApiKey();
   }, []);
+  // window.addEventListener("contextmenu", (e) => e.preventDefault());
   return (
     <>
       <ToastContainer />
@@ -233,6 +234,14 @@ function App() {
             <ProtectedRoute isAdmin={true}>
               <ProductReviews />
             </ProtectedRoute>
+          }
+        />
+        <Route
+          path="*"
+          element={
+            window.location.pathname === "/process/payment" ? null : (
+              <NotFound />
+            )
           }
         />
       </Routes>

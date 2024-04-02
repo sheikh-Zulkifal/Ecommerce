@@ -3,6 +3,7 @@ import "./aboutSection.css";
 import { Button, Typography, Avatar } from "@material-ui/core";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import InstagramIcon from "@material-ui/icons/Instagram"
+import Photo from "../../../images/pfff.jpg"
 const About = () => {
   const visitInstagram = () => {
     window.location = "https://instagram.com/sheikh_zulkifal";
@@ -18,7 +19,7 @@ const About = () => {
           <div>
             <Avatar
               style={{ width: "10vmax", height: "10vmax", margin: "2vmax 0" }}
-              src="https://asset.cloudinary.com/dtw46ssil/3b8817a275d27e91089bdd79ca01d026"
+              src={Photo}
               alt="Founder"
             />
             <Typography>Sheikh Zulkifal</Typography>
@@ -26,12 +27,12 @@ const About = () => {
               Visit Instagram
             </Button>
             <span>
-              This is a sample wesbite made by @zulkifal. Only with the
-              purpose to learn MERN Stack
+              This is a sample website made by @zulkifal. Only with the
+              purpose to learn MERN Stack.
             </span>
           </div>
           <div className="aboutSectionContainer2">
-            <Typography component="h2">X</Typography>
+            <Typography component="h2">Our Brands</Typography>
             <a
               href="https://x.com/sheikh_zulkifal?s=08"
               target="blank"

@@ -17,6 +17,7 @@ const Dashboard = () => {
   const { users } = useSelector((state) => state.allUsers);
 
   const [outofStock, setOutOfStock] = useState(0);
+  const [totalAmount, setTotalAmount] = useState(0);
 
   useEffect(() => {
     dispatch(getAdminProducts());
@@ -39,7 +40,13 @@ const Dashboard = () => {
   useEffect(() => {
     // Register required elements for Chart.js
     Chart.register(...(Chart.controllers || []), ...(Chart.elements || []));
-  }, []);
+
+    let total = 0;
+    orders && orders.forEach((item) => {
+      total += parseFloat(item.totalPrice);
+    });
+    setTotalAmount(total);
+  }, [orders]);
 
   const chartData = {
     labels: ["Initial Amount", "Amount Earned"],
@@ -48,7 +55,7 @@ const Dashboard = () => {
         label: "Total Amount",
         backgroundColor: "tomato",
         hoverBackgroundColor: "rgb(197,72,49)",
-        data: [0, 4000],
+        data: [0, totalAmount],
       },
     ],
   };
@@ -72,7 +79,7 @@ const Dashboard = () => {
         <div className="dashboardSummary">
           <div>
             <p>
-              Total Amount <br /> $200
+              Total Amount <br /> ${totalAmount}
             </p>
           </div>
           <div className="dashboardSummaryBox2">

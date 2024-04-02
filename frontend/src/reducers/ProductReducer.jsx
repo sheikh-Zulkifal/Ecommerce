@@ -28,6 +28,10 @@ import {
   DELETE_REVIEW_SUCCESS,
   DELETE_REVIEW_FAIL,
   DELETE_REVIEW_RESET,
+  UPDATE_PRODUCT_REQUEST,
+  UPDATE_PRODUCT_SUCCESS,
+  UPDATE_PRODUCT_FAIL,
+  UPDATE_PRODUCT_RESET,
 } from "../constants/ProductConstants.jsx";
 import {
   UPDATE_PASSWORD_FAIL,
@@ -112,7 +116,7 @@ export const newProductReducer = (state = { product: {} }, action) => {
 export const productReducer = (state = {}, action) => {
   switch (action.type) {
     case DELETE_PRODUCT_REQUEST:
-    case UPDATE_PASSWORD_REQUEST:
+    case UPDATE_PRODUCT_REQUEST:
       return {
         ...state,
         loading: true,
@@ -123,14 +127,14 @@ export const productReducer = (state = {}, action) => {
         loading: false,
         isDeleted: action.payload,
       };
-    case UPDATE_PASSWORD_SUCCESS:
+    case UPDATE_PRODUCT_SUCCESS:
       return {
         ...state,
         loading: false,
         isUpdated: action.payload,
       };
     case DELETE_PRODUCT_FAIL:
-    case UPDATE_PASSWORD_FAIL:
+    case UPDATE_PRODUCT_FAIL:
       return {
         ...state,
         loading: false,
@@ -141,7 +145,7 @@ export const productReducer = (state = {}, action) => {
         ...state,
         isDeleted: false,
       };
-    case UPDATE_PASSWORD_RESET:
+    case UPDATE_PRODUCT_RESET:
       return {
         ...state,
         isUpdated: false,

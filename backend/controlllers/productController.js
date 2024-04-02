@@ -89,13 +89,16 @@ exports.getProductDetail = catchAsyncError(async (req, res, next) => {
 
 
 // Update a product -- Admin
+
 exports.updateProduct = catchAsyncError(async (req, res, next) => {
   let product = await Product.findById(req.params.id);
+  console.log(req.body)
+
   if (!product) {
     return next(new ErrorHandler("Product not found", 404));
   }
 
-  // Handle image updates
+  // Images Start Here
   let images = [];
 
   if (typeof req.body.images === "string") {
@@ -105,45 +108,34 @@ exports.updateProduct = catchAsyncError(async (req, res, next) => {
   }
 
   if (images !== undefined) {
-    // Delete previous images from Cloudinary
+    // Deleting Images From Cloudinary
     for (let i = 0; i < product.images.length; i++) {
-      const imageId = product.images[i].public_id;
-      try {
-        const result = await cloudinary.v2.uploader.destroy(imageId);
-        // console.log(`Image with ID ${imageId} deleted successfully`);
-        // console.log(result); // Log the result from Cloudinary
-      } catch (error) {
-        console.error(`Failed to delete image with ID ${imageId}:`, error);
-      }
+      await cloudinary.v2.uploader.destroy(product.images[i].public_id);
     }
 
-    // Upload new images to Cloudinary
     const imagesLinks = [];
-    const uploadPromises = images.map(async (image) => {
-      const result = await cloudinary.v2.uploader.upload(image, {
+
+    for (let i = 0; i < images.length; i++) {
+      const result = await cloudinary.v2.uploader.upload(images[i], {
         folder: "products",
       });
+
       imagesLinks.push({
         public_id: result.public_id,
         url: result.secure_url,
       });
-    });
+    }
 
-    // Wait for all images to be uploaded
-    await Promise.all(uploadPromises);
-
-    // Set the updated images array to the product
-    product.images = imagesLinks;
+    req.body.images = imagesLinks;
   }
-
-  // Update other fields of the product
+  req.body.Stock = req.body.stock
   product = await Product.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
     useFindAndModify: false,
   });
 
-  return res.status(200).json({
+  res.status(200).json({
     success: true,
     product,
   });

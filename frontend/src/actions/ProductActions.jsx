@@ -24,6 +24,9 @@ import {
   DELETE_REVIEW_REQUEST,
   DELETE_REVIEW_SUCCESS,
   DELETE_REVIEW_FAIL,
+  UPDATE_PRODUCT_REQUEST,
+  UPDATE_PRODUCT_SUCCESS,
+  UPDATE_PRODUCT_FAIL,
 } from "../constants/ProductConstants.jsx";
 import axios from "axios";
 import {
@@ -108,7 +111,7 @@ export const createProduct = (productData) => async (dispatch) => {
 // Update Product
 export const updateProduct = (id, productData) => async (dispatch) => {
   try {
-    dispatch({ type: UPDATE_PASSWORD_REQUEST });
+    dispatch({ type: UPDATE_PRODUCT_REQUEST });
 
     const config = {
       headers: { "Content-Type": "application/json" },
@@ -121,13 +124,13 @@ export const updateProduct = (id, productData) => async (dispatch) => {
       config
     );
     dispatch({
-      type: UPDATE_PASSWORD_SUCCESS,
+      type: UPDATE_PRODUCT_SUCCESS,
       payload: data.success,
     });
   } catch (error) {
     dispatch({
-      type: UPDATE_PASSWORD_FAIL,
-      payload: error.response.data.message,
+      type: UPDATE_PRODUCT_FAIL,
+      payload: error?.response.data.message,
     });
   }
 };
