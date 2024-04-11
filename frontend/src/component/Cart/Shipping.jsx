@@ -27,7 +27,7 @@ const Shipping = () => {
 
   const shippingSubmit = (e) => {
     e.preventDefault();
-    if (phoneNo.length !== 12) {
+    if (phoneNo.length !== 11) {
       toast.error("Phone Number should be 11 digits long");
       return;
     }
