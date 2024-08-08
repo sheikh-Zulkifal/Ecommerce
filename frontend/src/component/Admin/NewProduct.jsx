@@ -56,7 +56,7 @@ const NewProduct = () => {
     myForm.set("price", price);
     myForm.set("description", description);
     myForm.set("category", category);
-    myForm.set("stock", Stock);
+    myForm.set("Stock", Stock);
 
     images.forEach((image) => {
       myForm.append("images", image);
